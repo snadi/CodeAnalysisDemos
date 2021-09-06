@@ -75,7 +75,7 @@ This is based on the examples here [https://github.com/SpoonLabs/spoon-examples]
 ```
 
 1. Look at `src/main/java/fr/inria/gforge/spoon/analysis/CatchProcessor.java` which looks for empty catch clauses.
-2. Run the corresponding test `mvn -Dtest=CatchProcessorTest test`, which looks for empty catch clauses in the programs in `src/test/resources/src`. Right now, there are two such clauses
+2. Run the corresponding test `mvn -Dtest=CatchProcessorTest test`, which looks for empty catch clauses in the programs in `src/test/resources/src`. Right now, there are two such clauses and the assertion checks for 2 clauses accordingly.
 3. . Add another empty catch block in one of the java test files under `src/test/resources/src` and re-run the test. It should fail now, since number of empty catch blocks is now 3 not 2
 
 ## BOA Demo
