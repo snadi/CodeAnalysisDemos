@@ -94,7 +94,7 @@ Not part of the Docker container.
 
 This is based on [http://www.srcml.org/tutorials/creating-srcml.html](http://www.srcml.org/tutorials/creating-srcml.html)
 
-1. Download srcML from  [http://www.srcml.org/#download](http://www.srcml.org/#download) 
+1. Download and install srcML from  [http://www.srcml.org/#download](http://www.srcml.org/#download) 
 2. Create a file called `rotate.cpp` in your srcML directory with the following code
 
 ```
@@ -111,8 +111,8 @@ void rotate(int& n1, int& n2, int& n3)
 }
 ```
 
-3. Run `./srcML/bin/srcml rotate.cpp -o rotate.xml` -- This will create the rotate.xml file
+3. Run `srcml rotate.cpp -o rotate.xml` -- This will create the rotate.xml file
 4. Display `rotate.xml`. If your editor does not properly format the xml, you can use [https://www.freeformatter.com/xml-formatter.html](https://www.freeformatter.com/xml-formatter.html)
 5. Let's start querying!
-	* `./srcML/bin/srcml --xpath "//src:function/src:name" rotate.xml` -- lists the names of all functions
-	* `./srcML/bin/srcml --xpath "//src:function[src:parameter_list[count(src:parameter) = 2]]/src:name" rotate.xml` -- lists the functions with exactly 2 parameters. Should not have any output in current example
+	* `srcml --xpath "//src:function/src:name" rotate.xml` -- lists the names of all functions
+	* `srcml --xpath "//src:function[src:parameter_list[count(src:parameter) = 2]]/src:name" rotate.xml` -- lists the functions with exactly 2 parameters. Should not have any output in current example
