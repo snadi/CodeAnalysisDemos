@@ -23,12 +23,6 @@ RUN mvn install:install-file -Dfile=lib/changedistiller-0.0.1-SNAPSHOT-jar-with-
 
 RUN mvn clean package assembly:single
 
-#install SrcML
-
-WORKDIR /ca-demo/SrcML
-
-RUN dpkg -i srcML-Ubuntu12.04-64.deb
-
 #change back to main working directory
 WORKDIR /ca-demo
 
