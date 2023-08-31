@@ -1,4 +1,4 @@
-FROM maven:3.6.1-slim
+FROM maven:3.9-eclipse-temurin-11
 
 RUN apt-get update && \
 	apt-get install vim -y
@@ -9,6 +9,7 @@ WORKDIR /ca-demo
 COPY ASTDemos/pom.xml .
 RUN mvn dependency:go-offline
 COPY spoon-examples/pom.xml .
+RUN mvn dependency:go-offline
 
 COPY . /ca-demo
 
@@ -16,18 +17,10 @@ COPY . /ca-demo
 WORKDIR /ca-demo/ASTDemos
 RUN mvn clean package assembly:single
 
-#compile ChangeDistiller demo
-WORKDIR /ca-demo/ChangeDistillerDemo
-
-RUN mvn install:install-file -Dfile=lib/changedistiller-0.0.1-SNAPSHOT-jar-with-dependencies.jar -DgroupId=changedistiller -DartifactId=changedistiller -Dversion=1.0-SNAPSHOT -Dpackaging=jar
-
+#compile GumTreeDiffDemo
+WORKDIR /ca-demo/GumTreeDiffDemo
 RUN mvn clean package assembly:single
 
-#install SrcML
-
-WORKDIR /ca-demo/SrcML
-
-RUN dpkg -i srcML-Ubuntu12.04-64.deb
 
 #change back to main working directory
 WORKDIR /ca-demo

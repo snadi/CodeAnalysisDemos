@@ -5,19 +5,29 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>groupId</groupId>
-    <artifactId>ChangeDistillerDemo</artifactId>
+    <artifactId>GumTreeDiffDemo</artifactId>
     <version>1.0-SNAPSHOT</version>
 <dependencies>
     <dependency>
-        <groupId>changedistiller</groupId>
-        <artifactId>changedistiller</artifactId>
-        <version>1.0-SNAPSHOT</version>
+      <groupId>com.github.gumtreediff</groupId>
+      <artifactId>core</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.gumtreediff</groupId>
+      <artifactId>client</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+     <dependency>
+      <groupId>com.github.gumtreediff</groupId>
+      <artifactId>gen.javaparser</artifactId>
+      <version>3.0.0</version>
     </dependency>
 </dependencies>
 
 <properties>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
 </properties>
 
 <build>
@@ -27,7 +37,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ChangeDistillerDemo</mainClass>
+                            <mainClass>ProgramDifferencer</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -6,18 +6,18 @@ The demos are prepared by [Sarah Nadi](https://sarahnadi.org) and are mainly use
 
 # Running the Demos
 
-The repo comes with a Dockerfile that takes care of using the correct version of python and setting up dependencies. 
+The repo comes with a Dockerfile that takes care of using the correct version of Java and setting up dependencies, including compiling the various projects into jar files to use.
 
 To build the Docker image (this may take a bit of time):
 
 ```
-docker build --tag=ca-demo:f19 .
+docker build --tag=ca-demo:f23 .
 ```
 
 To run the docker image:
 
 ```
-docker run --name CADemo -it --rm ca-demo:f19 /bin/bash
+docker run --name CADemo -it --rm ca-demo:f23 /bin/bash
 ```
 
 Unless otherwise specified, all instructions below are based on running from within the Docker image (which means that all most code for the demos has been compiled already)
@@ -50,33 +50,53 @@ Declaration of 'al' at line4
 ```
 
 
-## ChangeDistiller Demo
+## GumTreeDiff Demo
 
-[ChangeDistiller](https://bitbucket.org/sealuzh/tools-changedistiller/wiki/Home) analyzes two versions of a piece of code and detects the change operations that occurred. The current demo simply prins the edit actions that occurred between programs `examples/Test.java_v1` and  `examples/Test.java_v2`
-
-```
-/ca-demo# cd ChangeDistillerDemo/
-/ca-demo/ChangeDistillerDemo# java -jar target/ChangeDistillerDemo-1.0-SNAPSHOT-jar-with-dependencies.jar 
-WARNING: ...
-size: 3
-METHOD_RENAMING METHOD: Test.foo()
-STATEMENT_INSERT VARIABLE_DECLARATION_STATEMENT: int x = 5;
-ADDITIONAL_FUNCTIONALITY METHOD: Test.newMethod()
-```
-
-If you are interested, check out [GumTree](https://github.com/GumTreeDiff/gumtree), which is a newer tool with a similar purpose.
-
-## Spoon Demo
-
-This is based on the examples here [https://github.com/SpoonLabs/spoon-examples](https://github.com/SpoonLabs/spoon-examples). This repo is already added as a submodule here. You can import the mvn project into your favorit IDE if you want to browse through. We will just execute one test here.
+[GumTree](https://github.com/GumTreeDiff/gumtree) can analyze two versions of a piece of code, map nodes from one version to the other, and detecte the change operations that occurred. The current demo simply prins the edit actions that occurred between programs `examples/Version1.java` and  `examples/Version2.java`
 
 ```
-/ca-demo# cd spoon-examples/
-```
+/ca-demo# cd GumTreeDiffDemo/
+/ca-demo/GumTreeDiffDemo# java -jar target/GumTreeDiffDemo-1.0-SNAPSHOT-jar-with-===
+insert-tree
+---
+MethodDeclaration [113,177]
+    Modifier: private [113,120]
+    SimpleName: newMethod [128,137]
+    ClassOrInterfaceType [121,127]
+        SimpleName: String [121,127]
+    BlockStmt [139,177]
+        ExpressionStmt [143,174]
+            MethodCallExpr [143,173]
+                FieldAccessExpr [143,153]
+                    NameExpr [143,149]
+                        SimpleName: System [143,149]
+                    SimpleName: out [150,153]
+                SimpleName: println [154,161]
+                StringLiteralExpr: I'm new! [162,172]
+to
+ClassOrInterfaceDeclaration [26,99]
+at 3
+===
+update-node
+---
+SimpleName: foo [59,62]
+replace foo by boo
+===
+insert-tree
+---
+ExpressionStmt [97,107]
+    VariableDeclarationExpr [97,106]
+        VariableDeclarator [101,106]
+            PrimitiveType: int [97,100]
+            SimpleName: x [101,102]
+            IntegerLiteralExpr: 5 [105,106]
+to
+BlockStmt [64,97]
+at 1```
 
-1. Look at `src/main/java/fr/inria/gforge/spoon/analysis/CatchProcessor.java` which looks for empty catch clauses.
-2. Run the corresponding test `mvn -Dtest=CatchProcessorTest test`, which looks for empty catch clauses in the programs in `src/test/resources/src`. Right now, there are two such clauses
-3. . Add another empty catch block in one of the java test files under `src/test/resources/src` and re-run the test. It should fail now, since number of empty catch blocks is now 3 not 2
+## Spoon Examples
+
+Check out ReadMe in [https://github.com/SpoonLabs/spoon-examples](https://github.com/SpoonLabs/spoon-examples).
 
 ## BOA Demo
 
@@ -88,31 +108,3 @@ Boa homepage is [http://boa.cs.iastate.edu](http://boa.cs.iastate.edu) and conta
 2. Run the example on the small dataset (so it finishes quickly)
 3. Go to your list of jobs to view the result
 
-## SrcML
-
-Not part of the Docker container. 
-
-This is based on [http://www.srcml.org/tutorials/creating-srcml.html](http://www.srcml.org/tutorials/creating-srcml.html)
-
-1. Download srcML from  [http://www.srcml.org/#download](http://www.srcml.org/#download) 
-2. Create a file called `rotate.cpp` in your srcML directory with the following code
-
-```
-#include "rotate.h"
-// rotate three values
-void rotate(int& n1, int& n2, int& n3)
-{
- // copy original values
- int tn1 = n1, tn2 = n2, tn3 = n3;
- // move
- n1 = tn3;
- n2 = tn1;
- n3 = tn2;
-}
-```
-
-3. Run `./srcML/bin/srcml rotate.cpp -o rotate.xml` -- This will create the rotate.xml file
-4. Display `rotate.xml`. If your editor does not properly format the xml, you can use [https://www.freeformatter.com/xml-formatter.html](https://www.freeformatter.com/xml-formatter.html)
-5. Let's start querying!
-	* `./srcML/bin/srcml --xpath "//src:function/src:name" rotate.xml` -- lists the names of all functions
-	* `./srcML/bin/srcml --xpath "//src:function[src:parameter_list[count(src:parameter) = 2]]/src:name" rotate.xml` -- lists the functions with exactly 2 parameters. Should not have any output in current example
