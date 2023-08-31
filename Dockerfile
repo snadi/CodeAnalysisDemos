@@ -1,4 +1,4 @@
-FROM maven:3.9-eclipse-temurin-11
+FROM maven:3.6.3-jdk-11
 
 RUN apt-get update && \
 	apt-get install vim -y
@@ -21,10 +21,6 @@ RUN mvn clean package assembly:single
 WORKDIR /ca-demo/GumTreeDiffDemo
 RUN mvn clean package assembly:single
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e0784e0ebf1f4890f47d65bb260d396b0e83b1ee
 #change back to main working directory
 WORKDIR /ca-demo
 

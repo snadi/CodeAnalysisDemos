@@ -24,6 +24,8 @@ Unless otherwise specified, all instructions below are based on running from wit
 
 ## Using JDT for AST Processing
 
+**NOTE: this currently produces an error on the Docker container (See Issue [#2](https://github.com/snadi/CodeAnalysisDemos/issues/2)). Fixes welcome. In the meantime, you can run this demo locally by first compiling the project with `mvn clean package assembly:single`**
+
 We use the Eclipse JDT APIs to process the AST of corresponding code. The `MethodInvPrinter` prints out all invocations found in `resources/test-inv.java`. The `MethodiInvocationCounter` counts how many times each method is called. `VarDeclCounter` prints out all declarations found in `resources/test.java`.
 
 ```
@@ -56,7 +58,9 @@ Declaration of 'al' at line4
 
 ```
 /ca-demo# cd GumTreeDiffDemo/
-/ca-demo/GumTreeDiffDemo# java -jar target/GumTreeDiffDemo-1.0-SNAPSHOT-jar-with-===
+/ca-demo/GumTreeDiffDemo# java -jar target/GumTreeDiffDemo-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+===
 insert-tree
 ---
 MethodDeclaration [113,177]
