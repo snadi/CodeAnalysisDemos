@@ -7,7 +7,8 @@ jobs:
     name: A job to list top modified functions
     steps:
       - uses: actions/checkout@v4
-        fetch-depth: 0
+        with:
+          fetch-depth: 0
       - name: get modified functions
         uses: snadi/TopModifiedFunctions@v0.1.1-alpha
         with:
