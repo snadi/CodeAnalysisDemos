@@ -8,6 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: get modified functions
-        uses: snadi/TopModifiedFunctions@0.1.0-alpha
+        uses: snadi/TopModifiedFunctions@v0.1.1-alpha
         with:
           topn: 5
