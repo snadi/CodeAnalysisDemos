@@ -1,15 +1,17 @@
+name: List top modified functions
+
 on:
   workflow_dispatch
   
 jobs:
-  hello_world_job:
+  top-modified-fns:
     runs-on: ubuntu-latest
-    name: A job to list top modified functions
+    name: List top modified functions
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: get modified functions
-        uses: snadi/TopModifiedFunctions@v0.1.1-alpha
+        uses: snadi/TopModifiedFunctions@v1.1
         with:
           topn: 5
