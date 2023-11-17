@@ -21,7 +21,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: get modified functions
-        uses: snadi/TopModifiedFunctions@v1.1
+        uses: snadi/TopModifiedFunctions@v1.2
         with:
           topn: "${{ github.event.inputs.topn }}"
           mainbranch: "${{ github.event.inputs.mainbranch }}"
+          lastyearonly: "${{ github.event.inputs.lastyearonly }}"
