@@ -11,6 +11,10 @@ on:
         description: "The name of the branch to analyze"
         type: string
         default: "master"
+      lastyearonly:
+        description: "Disable if you want to analyze the full history (takes longer)"
+        type: boolean
+        default: true
   
 jobs:
   top-modified-fns:
